@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="ecedi.mercanet_bnp_paribas.form.type.gateway_configuration" class="Ecedi\MercanetBnpParibasPlugin\Form\Type\MercanetBnpParibasGatewayConfigurationType">
+            <tag name="sylius.gateway_configuration_type" type="mercanet_bnp_paribas" label="ecedi.mercanet_bnp_paribas.gateway_label"/>
+            <tag name="form.type"/>
+        </service>
+        <service id="ecedi.mercanet_bnp_paribas.gateway_factory" class="Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder">
+            <tag name="payum.gateway_factory_builder" factory="mercanet_bnp_paribas"/>
+            <argument>Ecedi\MercanetBnpParibasPlugin\MercanetBnpParibasGatewayFactory</argument>
+        </service>
+        <service id="ecedi.mercanet_bnp_paribas.action.capture" class="Ecedi\MercanetBnpParibasPlugin\Action\CaptureAction">
+            <tag name="payum.action" factory="mercanet_bnp_paribas" alias="payum.action.capture"/>
+            <argument type="service" id="payum"/>
+        </service>
+        <service id="ecedi.mercanet_bnp_paribas.action.notify" class="Ecedi\MercanetBnpParibasPlugin\Action\NotifyAction">
+            <tag name="payum.action" factory="mercanet_bnp_paribas" alias="payum.action.notify"/>
+            <argument type="service" id="sm.factory"/>
+        </service>
+        <service id="ecedi.mercanet_bnp_paribas.action.status" class="Ecedi\MercanetBnpParibasPlugin\Action\StatusAction">
+            <tag name="payum.action" factory="mercanet_bnp_paribas" alias="payum.action.status"/>
+            <argument type="service" id="request_stack"/>
+        </service>
+        <service id="ecedi.mercanet_bnp_paribas.bridge.mercanet_bnp_paribas_bridge" class="Ecedi\MercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridge">
+            <argument type="service" id="request_stack"/>
+        </service>
+    </services>
+</container>

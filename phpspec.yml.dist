@@ -1,0 +1,4 @@
+suites:
+    main:
+        namespace: Ecedi\MercanetBnpParibasPlugin
+        psr4_prefix: Ecedi\MercanetBnpParibasPlugin
