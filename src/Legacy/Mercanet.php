@@ -128,7 +128,7 @@ class Mercanet
         foreach ($parameters as $key => $value) {
             if ($key != 'keyVersion') {
                 if (is_array($value)) {
-                    shaCompose($value);
+                    $this->shaCompose($value);
                 } else {
                     $shaString .= $value;
                 }
@@ -431,17 +431,17 @@ class Mercanet
         $this->parameters['instalmentData.number'] = $number;
     }
 
-    public function setInstalmentDatesList($datesList)
+    public function setInstalmentDatesList(array $datesList)
     {
         $this->parameters['instalmentData.datesList'] = $datesList;
     }
 
-    public function setInstalmentDataTransactionReferencesList($transactionReferencesList)
+    public function setInstalmentDataTransactionReferencesList(array $transactionReferencesList)
     {
         $this->parameters['instalmentData.transactionReferencesList'] = $transactionReferencesList;
     }
 
-    public function setInstalmentDataAmountsList($amountsList)
+    public function setInstalmentDataAmountsList(array $amountsList)
     {
         $this->parameters['instalmentData.amountsList'] = $amountsList;
     }
@@ -526,6 +526,7 @@ class Mercanet
         $chaine = str_replace(":\"[", ":[", $chaine);
         $chaine = str_replace("]\"", "]", $chaine);
         $chaine = str_replace("\\\"", "\"", $chaine);
+
         return $chaine;
     }
     /*
@@ -714,6 +715,8 @@ class Mercanet
             die();
         }
         $result_array = json_decode($result);
+
+        dump($result_array);
 
         if ($result_array->redirectionStatusCode == "00" ) {
 

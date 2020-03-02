@@ -11,6 +11,7 @@
 namespace BitBag\MercanetBnpParibasPlugin\Action;
 
 use BitBag\MercanetBnpParibasPlugin\Legacy\SimplePayment;
+use BitBag\MercanetBnpParibasPlugin\Legacy\MixPayment;
 use BitBag\MercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridgeInterface;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
@@ -69,6 +70,7 @@ final class CaptureAction implements ActionInterface, ApiAwareInterface
      */
     public function execute($request)
     {
+
         RequestNotSupportedException::assertSupports($this, $request);
 
         $model = ArrayObject::ensureArrayObject($request->getModel());
@@ -120,24 +122,95 @@ final class CaptureAction implements ActionInterface, ApiAwareInterface
         $targetUrl = $request->getToken()->getTargetUrl();
         $amount = $payment->getAmount();
 
-        $transactionReference = "MercanetWS" . uniqid() . "OR" . $payment->getOrder()->getNumber();
+        $trips = [];
+        $events = [];
+        $books = [];
+        $items = $payment->getOrder()->getItems()->getValues();
+
+        foreach ($items as $item) {
+            if ($item->getProduct()->isEvent()) {
+                $events[] = $item;
+            }
+            if ($item->getProduct()->isBook()) {
+                $books[] = $item;
+            }
+            if ($item->getProduct()->isTrip()) {
+                $trips[] = $item;
+            }
+        }
+
+        $transactionReference = "MercanetWS".uniqid()."n".$payment->getOrder()->getNumber();
 
         $model['transactionReference'] = $transactionReference;
 
-        $simplePayment = new SimplePayment(
-            $mercanet,
-            $merchantId,
-            $keyVersion,
-            $environment,
-            $amount,
-            $targetUrl,
-            $currencyCode,
-            $transactionReference,
-            $automaticResponseUrl
-        );
+        if ((count($trips) > 0 && count($events) > 0 )
+            || (count($trips) > 0 && count($books) > 0 )
+            || (count($events) > 0 && count($books) > 0 )
+            || (count($trips) > 0 && count($books) > 0 && count($events) > 0 )) {
+            $transactionReferencesList = [];
+            $transactionDatesList = [];
+            $transactionAmountsList = [];
+            if (count($events) > 0) {
+                $transactionReferencesList[] = $transactionReference."E";
+                $transactionDatesList[] = date("Ymd");
+                $amountEvents = 0;
+                foreach ($events as $event) {
+                    $amountEvents = $amountEvents + $event->getTotal();
+                }
+                $transactionAmountsList[] = $amountEvents;
+            }
+            if (count($books) > 0) {
+                $transactionReferencesList[] = $transactionReference."B";
+                $dateBooks = new \DateTime('+1day');
+                $transactionDatesList[] = $dateBooks->format('Ymd');
+                $amountBooks = 0;
+                foreach ($books as $book) {
+                    $amountBooks = $amountBooks + $book->getTotal();
+                }
+                $transactionAmountsList[] = $amountBooks;
+            }
+            if (count($trips) > 0) {
+                $transactionReferencesList[] = $transactionReference."T";
+                $dateTrips = new \DateTime('+2days');
+                $transactionDatesList[] = $dateTrips->format('Ymd');
+                $amountTrips = 0;
+                foreach ($trips as $trip) {
+                    $amountTrips = $amountTrips + $trip->getTotal();
+                }
+                $transactionAmountsList[] = $amountTrips;
+            }
+            $transactionReference = $transactionReferencesList[0];
+
+            $payment = new MixPayment(
+                $mercanet,
+                $merchantId,
+                $keyVersion,
+                $environment,
+                $amount,
+                $targetUrl,
+                $currencyCode,
+                $transactionReference,
+                $transactionReferencesList,
+                $transactionDatesList,
+                $transactionAmountsList,
+                $automaticResponseUrl
+            );
+        } else {
+            $payment = new SimplePayment(
+                $mercanet,
+                $merchantId,
+                $keyVersion,
+                $environment,
+                $amount,
+                $targetUrl,
+                $currencyCode,
+                $transactionReference,
+                $automaticResponseUrl
+            );
+        }
 
         $request->setModel($model);
-        $simplePayment->execute();
+        $payment->execute();
     }
 
     /**
