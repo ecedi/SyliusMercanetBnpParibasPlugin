@@ -8,10 +8,10 @@
  * an email on kontakt@bitbag.pl.
  */
 
-namespace spec\BitBag\MercanetBnpParibasPlugin\Action;
+namespace spec\Ecedi\MercanetBnpParibasPlugin\Action;
 
-use BitBag\MercanetBnpParibasPlugin\Action\NotifyAction;
-use BitBag\MercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridgeInterface;
+use Ecedi\MercanetBnpParibasPlugin\Action\NotifyAction;
+use Ecedi\MercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridgeInterface;
 use Payum\Core\Request\Notify;
 use PhpSpec\ObjectBehavior;
 use SM\Factory\FactoryInterface;

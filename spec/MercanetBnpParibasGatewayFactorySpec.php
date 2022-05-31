@@ -8,9 +8,9 @@
  * an email on kontakt@bitbag.pl.
  */
 
-namespace spec\BitBag\MercanetBnpParibasPlugin;
+namespace spec\Ecedi\MercanetBnpParibasPlugin;
 
-use BitBag\MercanetBnpParibasPlugin\MercanetBnpParibasGatewayFactory;
+use Ecedi\MercanetBnpParibasPlugin\MercanetBnpParibasGatewayFactory;
 use PhpSpec\ObjectBehavior;
 use Payum\Core\GatewayFactory;
 

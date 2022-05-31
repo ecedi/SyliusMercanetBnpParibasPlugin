@@ -8,10 +8,10 @@
  * an email on kontakt@bitbag.pl.
  */
 
-namespace Tests\BitBag\MercanetBnpParibasPlugin\Behat\Mocker;
+namespace Tests\Ecedi\MercanetBnpParibasPlugin\Behat\Mocker;
 
-use BitBag\MercanetBnpParibasPlugin\Legacy\Mercanet;
-use BitBag\MercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridgeInterface;
+use Ecedi\MercanetBnpParibasPlugin\Legacy\Mercanet;
+use Ecedi\MercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridgeInterface;
 use Sylius\Behat\Service\Mocker\Mocker;
 
 /**

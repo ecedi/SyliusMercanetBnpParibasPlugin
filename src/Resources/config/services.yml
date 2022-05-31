@@ -1,44 +1,44 @@
 services:
-    bitbag.mercanet_bnp_paribas.form.type.gateway_configuration:
-        class: BitBag\MercanetBnpParibasPlugin\Form\Type\MercanetBnpParibasGatewayConfigurationType
+    ecedi.mercanet_bnp_paribas.form.type.gateway_configuration:
+        class: Ecedi\MercanetBnpParibasPlugin\Form\Type\MercanetBnpParibasGatewayConfigurationType
         public: true
         tags:
-            - { name: sylius.gateway_configuration_type, type: mercanet_bnp_paribas, label: bitbag.mercanet_bnp_paribas.gateway_label }
+            - { name: sylius.gateway_configuration_type, type: mercanet_bnp_paribas, label: ecedi.mercanet_bnp_paribas.gateway_label }
             - { name: form.type }
 
-    bitbag.mercanet_bnp_paribas.gateway_factory:
+    ecedi.mercanet_bnp_paribas.gateway_factory:
         class: Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder
         public: true
-        arguments: [BitBag\MercanetBnpParibasPlugin\MercanetBnpParibasGatewayFactory]
+        arguments: [Ecedi\MercanetBnpParibasPlugin\MercanetBnpParibasGatewayFactory]
         tags:
             - { name: payum.gateway_factory_builder, factory: mercanet_bnp_paribas }
 
-    bitbag.mercanet_bnp_paribas.action.capture:
-        class: BitBag\MercanetBnpParibasPlugin\Action\CaptureAction
+    ecedi.mercanet_bnp_paribas.action.capture:
+        class: Ecedi\MercanetBnpParibasPlugin\Action\CaptureAction
         public: true
         arguments:
             - '@payum'
         tags:
             - { name: payum.action, factory: mercanet_bnp_paribas, alias: payum.action.capture }
 
-    bitbag.mercanet_bnp_paribas.action.notify:
-        class: BitBag\MercanetBnpParibasPlugin\Action\NotifyAction
+    ecedi.mercanet_bnp_paribas.action.notify:
+        class: Ecedi\MercanetBnpParibasPlugin\Action\NotifyAction
         public: true
         arguments:
             - '@sm.factory'
         tags:
             - { name: payum.action, factory: mercanet_bnp_paribas, alias: payum.action.notify }
 
-    bitbag.mercanet_bnp_paribas.action.status:
-        class: BitBag\MercanetBnpParibasPlugin\Action\StatusAction
+    ecedi.mercanet_bnp_paribas.action.status:
+        class: Ecedi\MercanetBnpParibasPlugin\Action\StatusAction
         public: true
         arguments:
             - '@request_stack'
         tags:
             - { name: payum.action, factory: mercanet_bnp_paribas, alias: payum.action.status }
 
-    bitbag.mercanet_bnp_paribas.bridge.mercanet_bnp_paribas_bridge:
-        class: BitBag\MercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridge
+    ecedi.mercanet_bnp_paribas.bridge.mercanet_bnp_paribas_bridge:
+        class: Ecedi\MercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridge
         public: true
         arguments:
             - '@request_stack'

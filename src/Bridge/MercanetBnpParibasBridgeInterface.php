@@ -1,78 +1,21 @@
 <?php
 
-/**
- * This file was created by the developers from BitBag.
- * Feel free to contact us once you face any issues or want to start
- * another great project.
- * You can find more information about us on https://bitbag.shop and write us
- * an email on kontakt@bitbag.pl.
- */
+namespace Ecedi\MercanetBnpParibasPlugin\Bridge;
 
-namespace BitBag\MercanetBnpParibasPlugin\Bridge;
+use Ecedi\MercanetBnpParibasPlugin\Legacy\Mercanet;
 
-use BitBag\MercanetBnpParibasPlugin\Legacy\Mercanet;
-
-/**
- * @author Patryk Drapik <patryk.drapik@bitbag.pl>
- */
 interface MercanetBnpParibasBridgeInterface
 {
-    /**
-     * @param string $secretKey
-     *
-     * @return Mercanet
-     */
-    public function createMercanet($secretKey);
-
-    /**
-     * @return bool
-     */
-    public function paymentVerification();
-
-    public function getAuthorisationId();
-
-    /**
-     * @return bool
-     */
-    public function isPostMethod();
-
-    /**
-     * @return string
-     */
-    public function getSecretKey();
-
-    /**
-     * @param string $secretKey
-     */
-    public function setSecretKey($secretKey);
-
-    /**
-     * @return string
-     */
-    public function getMerchantId();
-
-    /**
-     * @param string $merchantId
-     */
-    public function setMerchantId($merchantId);
-
-    /**
-     * @return string
-     */
-    public function getKeyVersion();
-
-    /**
-     * @param string $keyVersion
-     */
-    public function setKeyVersion($keyVersion);
-
-    /**
-     * @return string
-     */
-    public function getEnvironment();
-
-    /**
-     * @param string $environment
-     */
-    public function setEnvironment($environment);
+    public function createMercanet(string $secretKey): Mercanet;
+    public function paymentVerification(): bool;
+    public function getAuthorisationId(): string;
+    public function isPostMethod(): bool;
+    public function getSecretKey(): string;
+    public function setSecretKey(string $secretKey);
+    public function getMerchantId(): string;
+    public function setMerchantId(string $merchantId);
+    public function getKeyVersion(): string;
+    public function setKeyVersion(string $keyVersion);
+    public function getEnvironment(): string;
+    public function setEnvironment(string $environment);
 }

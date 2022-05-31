@@ -8,7 +8,7 @@
  * an email on kontakt@bitbag.pl.
  */
 
-namespace Tests\BitBag\MercanetBnpParibasPlugin\Behat\Page\External;
+namespace Tests\Ecedi\MercanetBnpParibasPlugin\Behat\Page\External;
 
 use Behat\Mink\Exception\DriverException;
 use Behat\Mink\Exception\UnsupportedDriverActionException;

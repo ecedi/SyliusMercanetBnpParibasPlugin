@@ -8,7 +8,7 @@
  * an email on kontakt@bitbag.pl.
  */
 
-namespace Tests\BitBag\MercanetBnpParibasPlugin\Behat\Page\Admin\PaymentMethod;
+namespace Tests\Ecedi\MercanetBnpParibasPlugin\Behat\Page\Admin\PaymentMethod;
 
 use Behat\Mink\Element\NodeElement;
 use Sylius\Behat\Page\Admin\Crud\CreatePage as BaseCreatePage;

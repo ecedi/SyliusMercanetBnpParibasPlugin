@@ -1,28 +1,14 @@
 <?php
 
-/**
- * This file was created by the developers from BitBag.
- * Feel free to contact us once you face any issues or want to start
- * another great project.
- * You can find more information about us on https://bitbag.shop and write us
- * an email on kontakt@bitbag.pl.
- */
+namespace Ecedi\MercanetBnpParibasPlugin;
 
-namespace BitBag\MercanetBnpParibasPlugin;
-
-use BitBag\MercanetBnpParibasPlugin\Action\ConvertPaymentAction;
-use BitBag\MercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridgeInterface;
+use Ecedi\MercanetBnpParibasPlugin\Action\ConvertPaymentAction;
+use Ecedi\MercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridgeInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayFactory;
 
-/**
- * @author Mikołaj Król <mikolaj.krol@bitbag.pl>
- */
 final class MercanetBnpParibasGatewayFactory extends GatewayFactory
 {
-    /**
-     * {@inheritDoc}
-     */
     protected function populateConfig(ArrayObject $config)
     {
         $config->defaults([
@@ -31,7 +17,7 @@ final class MercanetBnpParibasGatewayFactory extends GatewayFactory
 
             'payum.action.convert' => new ConvertPaymentAction(),
 
-            'payum.http_client' => '@bitbag.mercanet_bnp_paribas.bridge.mercanet_bnp_paribas_bridge',
+            'payum.http_client' => '@ecedi.mercanet_bnp_paribas.bridge.mercanet_bnp_paribas_bridge',
         ]);
 
         if (false == $config['payum.api']) {

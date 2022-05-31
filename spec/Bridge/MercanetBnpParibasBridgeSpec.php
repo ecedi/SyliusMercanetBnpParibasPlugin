@@ -8,11 +8,11 @@
  * an email on kontakt@bitbag.pl.
  */
 
-namespace spec\BitBag\MercanetBnpParibasPlugin\Bridge;
+namespace spec\Ecedi\MercanetBnpParibasPlugin\Bridge;
 
-use BitBag\MercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridge;
-use BitBag\MercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridgeInterface;
-use BitBag\MercanetBnpParibasPlugin\Legacy\Mercanet;
+use Ecedi\MercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridge;
+use Ecedi\MercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridgeInterface;
+use Ecedi\MercanetBnpParibasPlugin\Legacy\Mercanet;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;

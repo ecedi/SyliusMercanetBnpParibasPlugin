@@ -1,4 +1,4 @@
-bitbag:
+ecedi:
     mercanet_bnp_paribas:
         environment: Environnement
         secure_key: Clé de sécurité

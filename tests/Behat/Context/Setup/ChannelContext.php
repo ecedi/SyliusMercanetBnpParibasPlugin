@@ -8,7 +8,7 @@
  * an email on kontakt@bitbag.pl.
  */
 
-namespace Tests\BitBag\MercanetBnpParibasPlugin\Behat\Context\Setup;
+namespace Tests\Ecedi\MercanetBnpParibasPlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
 use Sylius\Component\Core\Test\Services\DefaultChannelFactory;

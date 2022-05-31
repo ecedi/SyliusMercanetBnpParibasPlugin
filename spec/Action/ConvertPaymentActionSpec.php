@@ -8,9 +8,9 @@
  * an email on kontakt@bitbag.pl.
  */
 
-namespace spec\BitBag\MercanetBnpParibasPlugin\Action;
+namespace spec\Ecedi\MercanetBnpParibasPlugin\Action;
 
-use BitBag\MercanetBnpParibasPlugin\Action\ConvertPaymentAction;
+use Ecedi\MercanetBnpParibasPlugin\Action\ConvertPaymentAction;
 use PhpSpec\ObjectBehavior;
 use Payum\Core\Request\Convert;
 use Payum\Core\Model\PaymentInterface;

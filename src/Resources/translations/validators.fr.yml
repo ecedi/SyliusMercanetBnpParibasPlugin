@@ -1,4 +1,4 @@
-bitbag:
+ecedi:
     mercanet_bnp_paribas:
         merchant_id:
             not_blank: Entrez l'identifiant du marchand.

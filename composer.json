@@ -36,8 +36,8 @@
     },
     "autoload": {
         "psr-4": {
-            "BitBag\\MercanetBnpParibasPlugin\\": "src/",
-            "Tests\\BitBag\\MercanetBnpParibasPlugin\\": "tests/"
+            "Ecedi\\MercanetBnpParibasPlugin\\": "src/",
+            "Tests\\Ecedi\\MercanetBnpParibasPlugin\\": "tests/"
         }
     },
     "autoload-dev": {

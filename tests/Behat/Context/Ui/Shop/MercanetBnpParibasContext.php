@@ -8,13 +8,13 @@
  * an email on kontakt@bitbag.pl.
  */
 
-namespace Tests\BitBag\MercanetBnpParibasPlugin\Behat\Context\Ui\Shop;
+namespace Tests\Ecedi\MercanetBnpParibasPlugin\Behat\Context\Ui\Shop;
 
 use Behat\Behat\Context\Context;
 use Sylius\Behat\Page\Shop\Checkout\CompletePageInterface;
 use Sylius\Behat\Page\Shop\Order\ShowPageInterface;
-use Tests\BitBag\MercanetBnpParibasPlugin\Behat\Mocker\MercanetBnpParibasMocker;
-use Tests\BitBag\MercanetBnpParibasPlugin\Behat\Page\External\MercanetBnpParibasCheckoutPageInterface;
+use Tests\Ecedi\MercanetBnpParibasPlugin\Behat\Mocker\MercanetBnpParibasMocker;
+use Tests\Ecedi\MercanetBnpParibasPlugin\Behat\Page\External\MercanetBnpParibasCheckoutPageInterface;
 
 /**
  * @author Patryk Drapik <patryk.drapik@bitbag.pl>

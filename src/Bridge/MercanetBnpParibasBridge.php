@@ -1,158 +1,102 @@
 <?php
 
-/**
- * This file was created by the developers from BitBag.
- * Feel free to contact us once you face any issues or want to start
- * another great project.
- * You can find more information about us on https://bitbag.shop and write us
- * an email on kontakt@bitbag.pl.
- */
+namespace Ecedi\MercanetBnpParibasPlugin\Bridge;
 
-namespace BitBag\MercanetBnpParibasPlugin\Bridge;
-
-use BitBag\MercanetBnpParibasPlugin\Legacy\Mercanet;
+use Ecedi\MercanetBnpParibasPlugin\Legacy\Mercanet;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-/**
- * @author Patryk Drapik <patryk.drapik@bitbag.pl>
- */
 final class MercanetBnpParibasBridge implements MercanetBnpParibasBridgeInterface
 {
-    /**
-     * @var RequestStack
-     */
     private $requestStack;
-
-    /**
-     * @var string
-     */
     private $secretKey;
-
-    /**
-     * @var string
-     */
     private $merchantId;
-
-    /**
-     * @var string
-     */
     private $keyVersion;
-
-    /**
-     * @var string
-     */
     private $environment;
-
-    /** @var Mercanet */
     private $mercanet;
 
-    /**
-     * @param RequestStack $requestStack
-     */
     public function __construct(RequestStack $requestStack)
     {
         $this->requestStack = $requestStack;
+        $this->secretKey = '';
+        $this->merchantId = '';
+        $this->keyVersion = '';
+        $this->environment = '';
+        $this->mercanet = null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function createMercanet($secretKey)
+    public function createMercanet(string $secretKey): Mercanet
     {
         return new Mercanet($secretKey);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function paymentVerification()
+    public function paymentVerification(): bool
     {
         if ($this->isPostMethod()) {
-
             $this->mercanet = new Mercanet($this->secretKey);
-            $this->mercanet->setResponse($_POST);
+            $this->mercanet->fromResponse($_POST);
 
-            return $this->mercanet->isValid();
+            return $this->mercanet->isValid() && $this->mercanet->isSuccessful();
         }
 
         return false;
     }
 
-    public function getAuthorisationId()
+    public function getAuthorisationId(): string
     {
-        return $this->mercanet->getAuthorisationId();
+        if ($this->mercanet !== null) {
+            return $this->mercanet->getParameter('authorisationId');
+        }
+
+        return '';
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function isPostMethod()
+    public function isPostMethod(): bool
     {
         $currentRequest = $this->requestStack->getCurrentRequest();
 
-        return $currentRequest->isMethod('POST');
+        if ($currentRequest !== null) {
+            return $currentRequest->isMethod('POST');
+        }
+
+        return false;
     }
 
-    /**
-     * @return string
-     */
-    public function getSecretKey()
+    public function getSecretKey(): string
     {
         return $this->secretKey;
     }
 
-    /**
-     * @param string $secretKey
-     */
-    public function setSecretKey($secretKey)
+    public function setSecretKey(string $secretKey): void
     {
         $this->secretKey = $secretKey;
     }
 
-    /**
-     * @return string
-     */
-    public function getMerchantId()
+    public function getMerchantId(): string
     {
         return $this->merchantId;
     }
 
-    /**
-     * @param string $merchantId
-     */
-    public function setMerchantId($merchantId)
+    public function setMerchantId(string $merchantId): void
     {
         $this->merchantId = $merchantId;
     }
 
-    /**
-     * @return string
-     */
-    public function getKeyVersion()
+    public function getKeyVersion(): string
     {
         return $this->keyVersion;
     }
 
-    /**
-     * @param string $keyVersion
-     */
-    public function setKeyVersion($keyVersion)
+    public function setKeyVersion(string $keyVersion): void
     {
         $this->keyVersion = $keyVersion;
     }
 
-    /**
-     * @return string
-     */
-    public function getEnvironment()
+    public function getEnvironment(): string
     {
         return $this->environment;
     }
 
-    /**
-     * @param string $environment
-     */
-    public function setEnvironment($environment)
+    public function setEnvironment(string $environment): void
     {
         $this->environment = $environment;
     }

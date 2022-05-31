@@ -8,11 +8,11 @@
  * an email on kontakt@bitbag.pl.
  */
 
-namespace spec\BitBag\MercanetBnpParibasPlugin\Action;
+namespace spec\Ecedi\MercanetBnpParibasPlugin\Action;
 
-use BitBag\MercanetBnpParibasPlugin\Action\CaptureAction;
-use BitBag\MercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridgeInterface;
-use BitBag\MercanetBnpParibasPlugin\Legacy\Mercanet;
+use Ecedi\MercanetBnpParibasPlugin\Action\CaptureAction;
+use Ecedi\MercanetBnpParibasPlugin\Bridge\MercanetBnpParibasBridgeInterface;
+use Ecedi\MercanetBnpParibasPlugin\Legacy\Mercanet;
 use Payum\Core\Model\Token;
 use Payum\Core\Payum;
 use Payum\Core\Reply\HttpResponse;

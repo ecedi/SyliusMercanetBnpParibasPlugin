@@ -8,10 +8,10 @@
  * an email on kontakt@bitbag.pl.
  */
 
-namespace Tests\BitBag\MercanetBnpParibasPlugin\Behat\Context\Ui\Admin;
+namespace Tests\Ecedi\MercanetBnpParibasPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
-use Tests\BitBag\MercanetBnpParibasPlugin\Behat\Page\Admin\PaymentMethod\CreatePageInterface;
+use Tests\Ecedi\MercanetBnpParibasPlugin\Behat\Page\Admin\PaymentMethod\CreatePageInterface;
 use Webmozart\Assert\Assert;
 
 /**

@@ -8,10 +8,10 @@
  * an email on kontakt@bitbag.pl.
  */
 
-namespace Tests\BitBag\MercanetBnpParibasPlugin\Behat\Context\Setup;
+namespace Tests\Ecedi\MercanetBnpParibasPlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
-use BitBag\MercanetBnpParibasPlugin\Legacy\Mercanet;
+use Ecedi\MercanetBnpParibasPlugin\Legacy\Mercanet;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\Bundle\CoreBundle\Fixture\Factory\ExampleFactoryInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
@@ -83,7 +83,7 @@ final class MercanetBnpParibasContext implements Context
             'merchant_id' => 'TEST',
             'key_version' => 'TEST',
             'secret_key' => 'TEST',
-            'payum.http_client' => '@bitbag.mercanet_bnp_paribas.bridge.mercanet_bnp_paribas_bridge',
+            'payum.http_client' => '@ecedi.mercanet_bnp_paribas.bridge.mercanet_bnp_paribas_bridge',
         ]);
 
         $this->paymentMethodManager->flush();

@@ -1,86 +1,32 @@
 <?php
 
-/**
- * This file was created by the developers from BitBag.
- * Feel free to contact us once you face any issues or want to start
- * another great project.
- * You can find more information about us on https://bitbag.shop and write us
- * an email on kontakt@bitbag.pl.
- */
-
-namespace BitBag\MercanetBnpParibasPlugin\Legacy;
+namespace Ecedi\MercanetBnpParibasPlugin\Legacy;
 
 use Payum\Core\Reply\HttpResponse;
 
-/**
- * @author Mikołaj Król <mikolaj.krol@bitbag.pl>
- * @author Patryk Drapik <patryk.drapik@bitbag.pl>
- */
 final class SimplePayment
 {
-    /**
-     * @var Mercanet|object
-     */
     private $mercanet;
-
-    /**
-     * @var string
-     */
     private $environment;
-
-    /**
-     * @var string
-     */
     private $merchantId;
-
-    /**
-     * @var string
-     */
     private $keyVersion;
-
-    /**
-     * @var string
-     */
     private $amount;
-
-    /**
-     * @var string
-     */
     private $currency;
-
-    /**
-     * @var string
-     */
     private $transactionReference;
-
-    /**
-     * @var string
-     */
     private $automaticResponseUrl;
+    private $targetUrl;
 
-    /**
-     * @param Mercanet $mercanet
-     * @param $merchantId
-     * @param $keyVersion
-     * @param $environment
-     * @param $amount
-     * @param $targetUrl
-     * @param $currency
-     * @param $transactionReference
-     * @param $automaticResponseUrl
-     */
     public function __construct(
         Mercanet $mercanet,
-        $merchantId,
-        $keyVersion,
-        $environment,
-        $amount,
-        $targetUrl,
-        $currency,
-        $transactionReference,
-        $automaticResponseUrl
-    )
-    {
+        string $merchantId,
+        string $keyVersion,
+        string $environment,
+        int $amount,
+        string $targetUrl,
+        string $currency,
+        string $transactionReference,
+        string $automaticResponseUrl
+    ) {
         $this->automaticResponseUrl = $automaticResponseUrl;
         $this->transactionReference = $transactionReference;
         $this->mercanet = $mercanet;
@@ -92,31 +38,28 @@ final class SimplePayment
         $this->targetUrl = $targetUrl;
     }
 
-    public function execute()
+    public function execute(): void
     {
         $this->resolveEnvironment();
 
         $this->mercanet->setMerchantId($this->merchantId);
-        $this->mercanet->setInterfaceVersion(Mercanet::INTERFACE_VERSION);
         $this->mercanet->setKeyVersion($this->keyVersion);
         $this->mercanet->setAmount($this->amount);
         $this->mercanet->setCurrency($this->currency);
-        $this->mercanet->setOrderChannel("INTERNET");
+        $this->mercanet->setOrderChannel('INTERNET');
         $this->mercanet->setTransactionReference($this->transactionReference);
         $this->mercanet->setNormalReturnUrl($this->targetUrl);
         $this->mercanet->setAutomaticResponseUrl($this->automaticResponseUrl);
 
-        $this->mercanet->validate();
+        $this->mercanet->validateRequiredOptions();
 
-        $response = $this->mercanet->executeRequest();
-
-        throw new HttpResponse($response);
+        throw new HttpResponse($this->mercanet->generatePayment());
     }
 
     /**
      * @throws \InvalidArgumentException
      */
-    private function resolveEnvironment()
+    private function resolveEnvironment(): void
     {
         if (Mercanet::TEST === $this->environment) {
             $this->mercanet->setUrl(Mercanet::TEST);
@@ -130,15 +73,13 @@ final class SimplePayment
             return;
         }
 
-        if (Mercanet::SIMULATION === $this->environment) {
-            $this->mercanet->setUrl(Mercanet::SIMULATION);
-
-            return;
-        }
-
         throw new \InvalidArgumentException(
-            sprintf('The "%s" environment is invalid. Expected %s or %s',
-                $this->environment, Mercanet::PRODUCTION, Mercanet::TEST)
+            sprintf(
+                'The "%s" environment is invalid. Expected %s or %s',
+                $this->environment,
+                Mercanet::PRODUCTION,
+                Mercanet::TEST
+            )
         );
     }
 }

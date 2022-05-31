@@ -1,13 +1,13 @@
 services:
-    bitbag.mercanet_bnp_paribas_plugin.page.external:
-        class: Tests\BitBag\MercanetBnpParibasPlugin\Behat\Page\External\MercanetBnpParibasCheckoutPage
+    ecedi.mercanet_bnp_paribas_plugin.page.external:
+        class: Tests\Ecedi\MercanetBnpParibasPlugin\Behat\Page\External\MercanetBnpParibasCheckoutPage
         parent: 'sylius.behat.page'
         public: 'false'
         arguments:
             - '@__symfony__.sylius.repository.payment_security_token'
 
-    bitbag.mercanet_bnp_paribas_plugin.page.admin.payment_method.create:
-        class: Tests\BitBag\MercanetBnpParibasPlugin\Behat\Page\Admin\PaymentMethod\CreatePage
+    ecedi.mercanet_bnp_paribas_plugin.page.admin.payment_method.create:
+        class: Tests\Ecedi\MercanetBnpParibasPlugin\Behat\Page\Admin\PaymentMethod\CreatePage
         parent: 'sylius.behat.page.admin.crud.create'
         public: 'false'
         arguments:
